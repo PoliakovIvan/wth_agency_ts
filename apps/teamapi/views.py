@@ -1,8 +1,10 @@
-from django.contrib.auth.models import User, Team
-from rest_framework import viewsets
+from django.contrib.auth.models import User, Group
+from rest_framework import viewsets, status
 from rest_framework import permissions
-from apps.teamapi.serializers import UserSerializer, TeamSerializer
-
+from apps.teamapi.serializers import UserSerializer, GroupSerializer
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -13,9 +15,9 @@ class UserViewSet(viewsets.ModelViewSet):
        
 
 
-class TeamViewSet(viewsets.ModelViewSet):
-    queryset = Team.objects.all()
-    serializer_class = TeamSerializer
+class GroupViewSet(viewsets.ModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
